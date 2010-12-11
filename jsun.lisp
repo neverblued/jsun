@@ -1,12 +1,10 @@
 (defpackage #:jsun
   (:use #:common-lisp)
-  (:import-from #:dc-bin #:join)
-  (:import-from #:dc-bin #:join-by)
-  (:import-from #:dc-bin #:group)
+  (:import-from #:bin #:join)
+  (:import-from #:bin #:join-by)
+  (:import-from #:bin #:group)
   (:import-from #:cl-ppcre #:regex-replace-all)
   )
-
-(import :pizdec :dc-bin)
 
 (in-package #:jsun)
 
@@ -21,7 +19,7 @@
   (join "{" (apply #'join-by "," (loop for pair in (group hash 2) collect (apply #'encode-pair pair))) "}"))
 
 (defun encode-array (array)
-  (join "{" (apply #'join-by "," (loop for element in array collect (encode element))) "}"))
+  (join "[" (apply #'join-by "," (loop for element in array collect (encode element))) "]"))
 
 (defun hashlike? (source)
   (and (evenp (length source))
