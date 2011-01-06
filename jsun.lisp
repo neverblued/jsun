@@ -28,15 +28,15 @@
 ;;; simple
 
 (defmethod encode (source)
-  (format nil "\"[ Cannot encode ~a to JSON! ]\"" (type-of source)))
+  (format nil "\"[ JSUN failed encoding ~a ]\"" (type-of source)))
 
 (defmethod encode ((source number))
   source)
 
 (defmethod encode ((source string))
   (flet ((translate (source)
-           (dolist (token '("\\n" "\\\""))
-             (setf source (regex-replace-all token source token)))
+           (dolist (conversion '(("\\n" "\\n") ("\"" "\\\"")))
+             (setf source (regex-replace-all (first conversion) source (second conversion))))
            source))
     (join "\"" (translate source) "\"")))
 
