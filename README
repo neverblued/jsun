@@ -1,0 +1,6 @@
+JSUN, the Common Lisp to JavaScript Upright Notation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Задумка: S-JSON codec.
+
+Пример: (jsun::encode anything)
