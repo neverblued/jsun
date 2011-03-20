@@ -7,6 +7,6 @@
   :description "S-JSON codec"
   :version "0.1"
   :author "Demetrius Conde <condemetrius@gmail.com>"
-  :depends-on (#:cl-blackjack #:cl-ppcre)
+  :depends-on (#:blackjack #:cl-ppcre)
   :serial t
   :components ((:file "jsun")))
