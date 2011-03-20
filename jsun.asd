@@ -1,9 +1,5 @@
 (defpackage #:jsun-system
-  (:use
-     #:common-lisp
-     #:asdf
-     )
-  )
+  (:use #:common-lisp #:asdf))
 
 (in-package #:jsun-system)
 
@@ -11,7 +7,6 @@
   :description "S-JSON codec"
   :version "0.1"
   :author "Demetrius Conde <condemetrius@gmail.com>"
-  :licence "Public Domain"
-  :depends-on (#:cl-ppcre)
+  :depends-on (#:cl-blackjack #:cl-ppcre)
   :serial t
   :components ((:file "jsun")))

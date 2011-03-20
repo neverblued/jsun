@@ -1,0 +1,6 @@
+JSUN - the JavaScript Upright Notation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Задумка: S-JSON codec.
+
+Остенсивно, (jsun::encode anything)

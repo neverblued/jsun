@@ -1,10 +1,9 @@
 (defpackage #:jsun
   (:use #:common-lisp)
-  (:import-from #:bin #:join)
-  (:import-from #:bin #:join-by)
-  (:import-from #:bin #:group)
-  (:import-from #:cl-ppcre #:regex-replace-all)
-  )
+  (:import-from #:blackjack #:join)
+  (:import-from #:blackjack #:join-by)
+  (:import-from #:blackjack #:group)
+  (:import-from #:cl-ppcre #:regex-replace-all))
 
 (in-package #:jsun)
 
@@ -44,3 +43,6 @@
   (if (hashlike? source)
       (encode-hash source)
       (encode-array source)))
+
+(defmethod encode ((source condition))
+  (encode (format nil "~a" source)))
