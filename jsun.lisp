@@ -1,12 +1,10 @@
-;; (c) Demetrius Conde <condemetrius@gmail.com>
+;; (c) Дмитрий Пинский <demetrius@neverblued.info>
 ;; Допускаю использование и распространение согласно
-;; LLGPL --> http://opensource.franz.com/preamble.html
+;; LLGPL -> http://opensource.franz.com/preamble.html
 
 (defpackage #:jsun
   (:use #:common-lisp)
-  (:import-from #:blackjack #:join)
-  (:import-from #:blackjack #:join-by)
-  (:import-from #:blackjack #:group)
+  (:import-from #:blackjack #:join #:join-by #:group)
   (:import-from #:cl-ppcre #:regex-replace-all))
 
 (in-package #:jsun)
@@ -38,7 +36,7 @@
 
 (defmethod encode ((source string))
   (flet ((translate (source)
-           (dolist (conversion '(("\\n" "\\n") ("\\\\" "\\\\\\\\") ("\"" "\\\"")))
+           (dolist (conversion '(("\\" "\\\\") ("\\n" "\\n") ("\"" "\\\"")))
              (setf source (regex-replace-all (first conversion) source (second conversion))))
            source))
     (join "\"" (translate source) "\"")))
