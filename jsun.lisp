@@ -3,9 +3,7 @@
 ;; LLGPL -> http://opensource.franz.com/preamble.html
 
 (defpackage #:jsun
-  (:use #:common-lisp)
-  (:import-from #:blackjack #:join #:join-by #:group)
-  (:import-from #:cl-ppcre #:regex-replace-all))
+  (:use #:common-lisp #:blackjack #:cl-ppcre))
 
 (in-package #:jsun)
 
@@ -22,14 +20,14 @@
 (defun encode-array (array)
   (join "[" (apply #'join-by "," (loop for element in array collect (encode element))) "]"))
 
-(defun hashlike? (source)
+(defun hash-like? (source)
   (and (evenp (length source))
        (every #'keywordp (mapcar #'first (group source 2)))))
 
 ;;; simple
 
 (defmethod encode (source)
-  (format nil "\"[ JSUN failed encoding ~a ]\"" (type-of source)))
+  (format nil "\"[ JSUN failed encoding ~a ]\"" (type-of (car source))))
 
 (defmethod encode ((source number))
   source)
@@ -42,7 +40,7 @@
     (join "\"" (translate source) "\"")))
 
 (defmethod encode ((source list))
-  (if (hashlike? source)
+  (if (hash-like? source)
       (encode-hash source)
       (encode-array source)))
 
