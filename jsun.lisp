@@ -39,6 +39,9 @@
            source))
     (join "\"" (translate source) "\"")))
 
+(defmethod encode ((source symbol))
+  (encode (string-downcase (symbol-name source))))
+
 (defmethod encode ((source list))
   (if (hash-like? source)
       (encode-hash source)
