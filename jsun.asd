@@ -10,7 +10,8 @@
 (defsystem "jsun"
   :description "S-JSON codec"
   :version "0.2"
-  :author "Demetrius Conde <condemetrius@gmail.com>"
+  :author "Дмитрий Пинский <demetrius@neverblued.info>"
   :depends-on (#:blackjack #:cl-ppcre)
   :serial t
-  :components ((:file "jsun")))
+  :components ((:file "package")
+               (:file "encode")))
