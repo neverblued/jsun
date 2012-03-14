@@ -1,6 +1,9 @@
-JSUN, the Common Lisp to JavaScript Upright Notation
-====================================================
+JSUN, the S-expression to JavaScript Upright Notation
+=====================================================
 
-It's a S-JSON codec. Example of usage:
+Превращает S-выражение в JSON:
 
+```cl
 (jsun::encode 'anything)
+```
+
