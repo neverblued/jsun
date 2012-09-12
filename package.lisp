@@ -3,4 +3,4 @@
 ;; LLGPL -> http://opensource.franz.com/preamble.html
 
 (defpackage #:jsun
-  (:use #:common-lisp #:blackjack #:cl-ppcre))
+  (:use #:common-lisp #:iterate #:blackjack #:cl-ppcre))

@@ -23,26 +23,48 @@
 
 ;;; simple
 
-(defmethod encode (source)
-  (format nil "\"[ JSUN failed encoding ~a ]\"" (type-of (car source))))
+(defmethod encode
+    (source)
+  (format nil "\"[ JSUN failed encoding ~a ]\""
+          (type-of (car source))))
 
-(defmethod encode ((source number))
-  source)
-
-(defmethod encode ((source string))
-  (flet ((translate (source)
-           (dolist (conversion '(("\\" "\\\\") ("\\n" "\\n") ("\"" "\\\"")))
-             (setf source (regex-replace-all (first conversion) source (second conversion))))
-           source))
-    (join "\"" (translate source) "\"")))
-
-(defmethod encode ((source symbol))
+(defmethod encode
+    ((source symbol))
   (encode (string-downcase (symbol-name source))))
 
-(defmethod encode ((source list))
+(defmethod encode
+    ((source number))
+  source)
+
+(let* ((slash "\\")
+       (quote "\"")
+       (nl (join #\nl))
+       (slash-n (join slash "n"))
+       (slash-t (join slash "t"))
+       (dictionary `((,slash-n ,(join slash slash-n))
+                     (,slash-t ,(join slash slash-t))
+                     (,nl      ,slash-n)
+                     (,quote   ,(join slash quote)))))
+  (flet ((replace-all (string part replacement)
+           (regex-replace-all (create-scanner part) string replacement)))
+
+    (defmethod encode
+        ((source string))
+      (iter (for (from to) in dictionary)
+            (setf source (replace-all source from to)))
+      source)))
+
+(defmethod encode :around
+    ((source string))
+  (let ((quote "\""))
+    (join quote (call-next-method) quote)))
+
+(defmethod encode
+    ((source list))
   (if (hash-like? source)
       (encode-hash source)
       (encode-array source)))
 
-(defmethod encode ((source condition))
+(defmethod encode
+    ((source condition))
   (encode (format nil "~a" source)))
