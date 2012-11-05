@@ -9,7 +9,7 @@
 
 (defsystem "jsun"
   :description "S-JSON codec"
-  :version "0.2"
+  :version "0.3"
   :author "Дмитрий Пинский <demetrius@neverblued.info>"
   :depends-on (#:blackjack #:cl-ppcre)
   :serial t

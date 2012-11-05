@@ -52,11 +52,10 @@
         ((source string))
       (iter (for (from to) in dictionary)
             (setf source (replace-all source from to)))
-      source)))
+      source))
 
-(defmethod encode :around
-    ((source string))
-  (let ((quote "\""))
+  (defmethod encode :around
+      ((source string))
     (join quote (call-next-method) quote)))
 
 (defmethod encode
@@ -68,3 +67,7 @@
 (defmethod encode
     ((source condition))
   (encode (format nil "~a" source)))
+
+(defmethod encode
+    ((source (eql :json-empty-list)))
+  (encode-hash nil))
